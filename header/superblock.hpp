@@ -20,17 +20,17 @@
 class Superblock
 {
 protected:
-    uint32_t s_inodes_count = 0;        //ÎÄ¼şÏµÍ³ËùÓĞµÄ Inode ÊıÁ¿
-    uint32_t s_blocks_count = 0;        //ÎÄ¼şÏµÍ³ËùÓĞµÄ block ÊıÁ¿
-    uint32_t s_free_blocks_count = 0;   //ÎÄ¼şÏµÍ³¿ÕÓà¿ÉÓÃ block ÊıÁ¿
-    uint32_t s_free_inodes_count = 0;   //ÎÄ¼şÏµÍ³Ê£Óà inode ÊıÁ¿
-    uint32_t s_first_data_block = 0;    //superblock µÄ block id
+    uint32_t s_inodes_count = 0;        //æ–‡ä»¶ç³»ç»Ÿæ‰€æœ‰çš„ Inode æ•°é‡
+    uint32_t s_blocks_count = 0;        //æ–‡ä»¶ç³»ç»Ÿæ‰€æœ‰çš„ block æ•°é‡
+    uint32_t s_free_blocks_count = 0;   //æ–‡ä»¶ç³»ç»Ÿç©ºä½™å¯ç”¨ block æ•°é‡
+    uint32_t s_free_inodes_count = 0;   //æ–‡ä»¶ç³»ç»Ÿå‰©ä½™ inode æ•°é‡
+    uint32_t s_first_data_block = 0;    //superblock çš„ block id
     uint32_t s_log_block_size = 0;      //block size = 1024 << s_log_block_size;
-    uint32_t s_blocks_per_group = 0;    //Ã¿¸ö group µÄ block ÊıÁ¿
-    uint32_t s_inodes_per_group = 0;    //Ã¿¸ö group µÄ inode ÊıÁ¿
-    uint16_t s_inode_size = 128;        //inode µÄ´óĞ¡ In revision 0, this value is always 128
+    uint32_t s_blocks_per_group = 0;    //æ¯ä¸ª group çš„ block æ•°é‡
+    uint32_t s_inodes_per_group = 0;    //æ¯ä¸ª group çš„ inode æ•°é‡
+    uint16_t s_inode_size = 128;        //inode çš„å¤§å° In revision 0, this value is always 128
 
-    uint64_t VFS_block_size = 0;        //ÎÄ¼şÏµÍ³ÖĞ, Ã¿¸ö block µÄ´óĞ¡
+    uint64_t VFS_block_size = 0;        //æ–‡ä»¶ç³»ç»Ÿä¸­, æ¯ä¸ª block çš„å¤§å°
 
 public:
     int initialize(uint64_t file_system_full_size = FILE_SYSTEM_MAX_BYTE, uint32_t log_block_size = 0)
@@ -41,13 +41,13 @@ public:
 
         VFS_block_size = 1024 << log_block_size;
 
-        s_inodes_per_group = 1024 * 8; //Ã¿×é¹² 1024 * 8 ¸ö inode Ğ´ËÀ
-        s_blocks_per_group = 1024 * 8; //Ã¿×é¹² 1024 * 8 ¸ö block Ğ´ËÀ
+        s_inodes_per_group = 1024 * 8; //æ¯ç»„å…± 1024 * 8 ä¸ª inode å†™æ­»
+        s_blocks_per_group = 1024 * 8; //æ¯ç»„å…± 1024 * 8 ä¸ª block å†™æ­»
 
         file_system_full_size -= 2 * VFS_block_size;
         // s_blocks_count = file_system_full_size / VFS_bytes_per_group * s_blocks_per_group;
-        s_blocks_count = 1024 * 8; // ×Ü¹² 1024 * 8 ¸ö block Ğ´ËÀ
-        s_inodes_count = 1024 * 8; // ×Ü¹² 1024 * 8 ¸ö block Ğ´ËÀ
+        s_blocks_count = 1024 * 8; // æ€»å…± 1024 * 8 ä¸ª block å†™æ­»
+        s_inodes_count = 1024 * 8; // æ€»å…± 1024 * 8 ä¸ª block å†™æ­»
 
         s_free_blocks_count = s_blocks_count;
         s_free_inodes_count = s_inodes_count;
@@ -56,7 +56,7 @@ public:
     }
 
 
-    // ½« SuperBlock ĞÅÏ¢Ğ´ÈëÄ£Äâ´ÅÅÌµÄ¶ş½øÖÆÎÄ¼şÖĞ
+    // å°† SuperBlock ä¿¡æ¯å†™å…¥æ¨¡æ‹Ÿç£ç›˜çš„äºŒè¿›åˆ¶æ–‡ä»¶ä¸­
     int write_to_disk(std::string disk_file_path)
     {
         std::fstream disk_file;
@@ -84,7 +84,7 @@ public:
     }
 
 
-    // ´ÓÄ£Äâ´ÅÅÌµÄ¶ş½øÖÆÎÄ¼şÖĞ»Ö¸´ SuperBlock ĞÅÏ¢
+    // ä»æ¨¡æ‹Ÿç£ç›˜çš„äºŒè¿›åˆ¶æ–‡ä»¶ä¸­æ¢å¤ SuperBlock ä¿¡æ¯
     int read_to_VFS(std::string disk_file_path)
     {
         std::fstream disk_file;

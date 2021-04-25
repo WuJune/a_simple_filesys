@@ -25,26 +25,26 @@
 class VFS
 {
 protected:
-    Superblock          superblock;     // superblock ³£×¤ÄÚ´æ
-    Block_bitmap        block_bitmap;   // block_bitmap ³£×¤ÄÚ´æ
-    Inode_bitmap        inode_bitmap;   // inode_bitmap ³£×¤ÄÚ´æ
-    std::vector<Inode>  inode_table;    // inode_table  ³£×¤ÄÚ´æ
+    Superblock          superblock;     // superblock å¸¸é©»å†…å­˜
+    Block_bitmap        block_bitmap;   // block_bitmap å¸¸é©»å†…å­˜
+    Inode_bitmap        inode_bitmap;   // inode_bitmap å¸¸é©»å†…å­˜
+    std::vector<Inode>  inode_table;    // inode_table  å¸¸é©»å†…å­˜
     std::string         path = "./disk_in_disk.txt";
 
-    uint16_t             VFS_login_uid = 0;      // µÇÂ¼½øÎÄ¼şÏµÍ³µÄ uid
-    uint16_t             VFS_working_uid = 0;    // ÎÄ¼şÏµÍ³¹¤×÷µÄ uid£¬ÓÃÓÚÊµÏÖ¶àÓÃ»§¹²Ïí
+    uint16_t             VFS_login_uid = 0;      // ç™»å½•è¿›æ–‡ä»¶ç³»ç»Ÿçš„ uid
+    uint16_t             VFS_working_uid = 0;    // æ–‡ä»¶ç³»ç»Ÿå·¥ä½œçš„ uidï¼Œç”¨äºå®ç°å¤šç”¨æˆ·å…±äº«
 
 public:
     VFS(): superblock(Superblock()), block_bitmap(Block_bitmap()), inode_bitmap(Inode_bitmap()), inode_table(std::vector<Inode>())
     {
 
-        VFS_login_uid = 0;      // Ä¬ÈÏµÇÈë 0 ºÅÓÃ»§
-        VFS_working_uid = 0;    // Ä¬ÈÏcd µ½ 0 ºÅÄ¿Â¼
+        VFS_login_uid = 0;      // é»˜è®¤ç™»å…¥ 0 å·ç”¨æˆ·
+        VFS_working_uid = 0;    // é»˜è®¤cd åˆ° 0 å·ç›®å½•
 
     }
 
 
-    // ¸ñÊ½»¯
+    // æ ¼å¼åŒ–
     int format()
     {
         {
@@ -52,25 +52,25 @@ public:
             File.open(path);
             File.close();
         }
-        // superblock ³õÊ¼»¯
+        // superblock åˆå§‹åŒ–
         superblock.initialize();
         superblock.write_to_disk(path);
         superblock.read_to_VFS(path);
         superblock.print();
         std::cout << std::endl;
 
-        // block_bitmap ³õÊ¼»¯
+        // block_bitmap åˆå§‹åŒ–
         block_bitmap.write_to_disk(path);
         block_bitmap.print();
         std::cout << std::endl;
 
-        // inode_bitmap ³õÊ¼»¯
+        // inode_bitmap åˆå§‹åŒ–
         inode_bitmap.write_to_disk(path);
         inode_bitmap.print();
         std::cout << std::endl;
 
         inode_table = std::vector<Inode>();
-        // inode table ³õÊ¼»¯
+        // inode table åˆå§‹åŒ–
         for(int i = 0; i < 1024*8; ++i)
         {
             Inode temp_inode(i);
@@ -78,8 +78,8 @@ public:
             inode_table.push_back(temp_inode);
         }
 
-        // ´´½¨Ò»¸öÎÄ¼şÕ¼ÓÃ Block 0£¬±ÜÃâºóĞøÎÄ¼şÊ¹ÓÃ block 0 À´´æ·ÅÎÄ¼şÄÚÈİ
-        // »òÕßÖ±½Ó create("", 0), Ê¹µÃÎÄ¼ş²»¿É²éÕÒĞŞ¸ÄÉ¾³ı
+        // åˆ›å»ºä¸€ä¸ªæ–‡ä»¶å ç”¨ Block 0ï¼Œé¿å…åç»­æ–‡ä»¶ä½¿ç”¨ block 0 æ¥å­˜æ”¾æ–‡ä»¶å†…å®¹
+        // æˆ–è€…ç›´æ¥ create("", 0), ä½¿å¾—æ–‡ä»¶ä¸å¯æŸ¥æ‰¾ä¿®æ”¹åˆ é™¤
         create("odd", 0);
 
         return 0;   
@@ -91,22 +91,22 @@ public:
     {
         inode_table = std::vector<Inode>();
         
-        // superblock ³õÊ¼»¯
+        // superblock åˆå§‹åŒ–
         superblock.read_to_VFS(path);
         superblock.print();
         std::cout << std::endl;
 
-        // block_bitmap ³õÊ¼»¯
+        // block_bitmap åˆå§‹åŒ–
         block_bitmap.read_to_VFS(path);
         block_bitmap.print();
         std::cout << std::endl;
 
-        // inode_bitmap ³õÊ¼»¯
+        // inode_bitmap åˆå§‹åŒ–
         inode_bitmap.read_to_VFS(path);
         inode_bitmap.print();
         std::cout << std::endl;
 
-        // inode table ³õÊ¼»¯
+        // inode table åˆå§‹åŒ–
         for(int i = 0; i < 1024*8; ++i)
         {
             Inode temp_inode(i);
@@ -123,8 +123,8 @@ public:
 
 
 
-    // Ñ°ÕÒÎÄ¼şº¯Êı
-    // ÔÚ working uid Ä¿Â¼ÏÂÑ°ÕÒ¶ÔÓ¦ÎÄ¼ş£¬·µ»Ø FIND_FALSE ±íÊ¾Ñ°ÕÒÊ§°Ü
+    // å¯»æ‰¾æ–‡ä»¶å‡½æ•°
+    // åœ¨ working uid ç›®å½•ä¸‹å¯»æ‰¾å¯¹åº”æ–‡ä»¶ï¼Œè¿”å› FIND_FALSE è¡¨ç¤ºå¯»æ‰¾å¤±è´¥
     uint32_t find(std::string str_name)
     {
         uint32_t inode_id = FIND_FALSE;
@@ -146,7 +146,7 @@ public:
 
 
 
-    // ´´½¨ÎÄ¼şº¯Êı
+    // åˆ›å»ºæ–‡ä»¶å‡½æ•°
     int create(std::string str_name, uint32_t size_of_block)
     {
 
@@ -176,39 +176,39 @@ public:
             }
         }
 
-        // Ñ¡È¡ inode
+        // é€‰å– inode
         uint32_t inode_id = inode_bitmap.get_next_free_inode();
-        // ³õÊ¼»¯Ñ¡È¡µÄ inode
+        // åˆå§‹åŒ–é€‰å–çš„ inode
         inode_table[inode_id] = Inode(inode_id, str_name, VFS_working_uid);
         inode_bitmap.set_inode(inode_id);
         std::cout << "use inode: " << inode_id << "; ";
         
-        // Ñ¡È¡Ò»¼¶Ë÷ÒıµÄ block, ²¢½«ÎÄ¼şÖĞ¸Ã block reset
+        // é€‰å–ä¸€çº§ç´¢å¼•çš„ block, å¹¶å°†æ–‡ä»¶ä¸­è¯¥ block reset
         std::cout << "use blocks: ";
         uint32_t indirect_block = block_bitmap.get_next_free_inode();
         inode_table[inode_id].set_indirect_block(indirect_block, path);
 
-        // block_bitmap ±ê¼Ç
+        // block_bitmap æ ‡è®°
         block_bitmap.set_block(indirect_block);
         std::cout << indirect_block << " ";
 
-        // Ñ¡È¡´æ·ÅÊı¾İµÄ block£¬²¢Ã¿´Î¶¼ÔÚÄÚ´æÖĞÖØÖÃ¸Ã block£¬×îºóºÍ inode Ò»ÆğĞ´»Ø
+        // é€‰å–å­˜æ”¾æ•°æ®çš„ blockï¼Œå¹¶æ¯æ¬¡éƒ½åœ¨å†…å­˜ä¸­é‡ç½®è¯¥ blockï¼Œæœ€åå’Œ inode ä¸€èµ·å†™å›
         for(uint32_t i = 0; i < size_of_block; ++i)
         {
             uint32_t temp_id = block_bitmap.get_next_free_inode();
-            // Ìí¼Ó block
+            // æ·»åŠ  block
             inode_table[inode_id].add_block(temp_id);
-            // block_bitmap ±ê¼Ç
+            // block_bitmap æ ‡è®°
             block_bitmap.set_block(temp_id);
             std::cout << temp_id << " ";
         }
         std::cout << std::endl;
 
-        // superblock ¶ÔÓ¦±ê¼Ç¸üĞÂ
+        // superblock å¯¹åº”æ ‡è®°æ›´æ–°
         superblock.set_free_blocks_count(superblock.get_free_blocks_count() - 1 - size_of_block);
         superblock.set_free_inode_count(superblock.get_free_inode_count() - 1);
 
-        // ½«Éæ¼°¸Ä¶¯Ğ´»ØÎÄ¼ş
+        // å°†æ¶‰åŠæ”¹åŠ¨å†™å›æ–‡ä»¶
         inode_bitmap.write_to_disk(path);
         block_bitmap.write_to_disk(path);
         inode_table[inode_id].write_to_disk(path);
@@ -219,7 +219,7 @@ public:
 
 
 
-    // É¾³ıÎÄ¼şº¯Êı
+    // åˆ é™¤æ–‡ä»¶å‡½æ•°
     int remove(std::string str_name)
     {
 
@@ -231,20 +231,20 @@ public:
             return 0;
         }
 
-        // »ñÈ¡ĞèÒªÊÍ·ÅµÄ block ÁĞ±í
+        // è·å–éœ€è¦é‡Šæ”¾çš„ block åˆ—è¡¨
         std::vector<uint32_t> free_blocks = inode_table[inode_id].get_delete_blocks_ids();
-        // ÊÍ·Å block
+        // é‡Šæ”¾ block
         for(uint32_t i = 0; i < free_blocks.size(); ++i)
         {
-            // ĞŞ¸Ä block_bitmap ±ê¼Ç
+            // ä¿®æ”¹ block_bitmap æ ‡è®°
             block_bitmap.reset_block(free_blocks[i]);
         }
-        // ÊÍ·Å inode
+        // é‡Šæ”¾ inode
         inode_bitmap.reset_inode(inode_id);
-        // ĞŞ¸Ä inode bitmap ±ê¼Ç
+        // ä¿®æ”¹ inode bitmap æ ‡è®°
         inode_table[inode_id] = Inode(inode_id);
 
-        // superblock ¶ÔÓ¦¼ÇÂ¼ĞŞ¸Ä
+        // superblock å¯¹åº”è®°å½•ä¿®æ”¹
         superblock.set_free_blocks_count(superblock.get_free_blocks_count() + free_blocks.size());
         superblock.set_free_inode_count(superblock.get_free_inode_count() + 1);
 
@@ -263,7 +263,7 @@ public:
 
 
 
-    // ½Ø¶ÏÎÄ¼şº¯Êı
+    // æˆªæ–­æ–‡ä»¶å‡½æ•°
     int truncate(std::string str_name)
     {
 
@@ -275,9 +275,9 @@ public:
             return 0;
         }
 
-        // »ñÈ¡ĞèÒªÊÍ·ÅµÄ block ÁĞ±í
+        // è·å–éœ€è¦é‡Šæ”¾çš„ block åˆ—è¡¨
         std::vector<uint32_t> free_blocks = inode_table[inode_id].get_truncate_block_ids();
-        // ÊÍ·Å block
+        // é‡Šæ”¾ block
         for(uint32_t i = 0; i < free_blocks.size(); ++i)
         {
             block_bitmap.reset_block(free_blocks[i]);
@@ -299,7 +299,7 @@ public:
 
 
 
-    // À©´óÎÄ¼şº¯Êı
+    // æ‰©å¤§æ–‡ä»¶å‡½æ•°
     int increase(std::string str_name, uint32_t inc_count)
     {
 
@@ -321,7 +321,7 @@ public:
             return 0;
         }
 
-        // Ñ¡È¡´æ·ÅÊı¾İµÄ block
+        // é€‰å–å­˜æ”¾æ•°æ®çš„ block
         std::cout << "use blocks: ";
         for(uint32_t i = 0; i < inc_count; ++i)
         {
@@ -344,7 +344,7 @@ public:
 
 
 
-    // ÎÄ¼şÖØÃüÃûº¯Êı
+    // æ–‡ä»¶é‡å‘½åå‡½æ•°
     int rename(std::string name_str, std::string rename_str)
     {
         uint32_t inode_id = find(name_str);
@@ -360,7 +360,7 @@ public:
 
 
 
-    // Ğ´ÎÄ¼şº¯Êı£¬Ê¹ÓÃËæ»úÎ»ÖÃÖ¸Õë
+    // å†™æ–‡ä»¶å‡½æ•°ï¼Œä½¿ç”¨éšæœºä½ç½®æŒ‡é’ˆ
     int write(std::string str_name, char* input, uint32_t file_offset ,uint32_t size)
     {
         uint32_t inode_id = find(str_name);
@@ -382,7 +382,7 @@ public:
 
 
 
-    // ¶ÁÎÄ¼şº¯Êı£¬Ëæ»úÖ¸Õë
+    // è¯»æ–‡ä»¶å‡½æ•°ï¼ŒéšæœºæŒ‡é’ˆ
     int read(std::string str_name, char* ouput, uint32_t file_offset ,uint32_t size)
     {
         uint32_t inode_id = find(str_name);
@@ -404,7 +404,7 @@ public:
 
 
 
-    // ÏÔÊ¾Ö¸¶¨ÎÄ¼şµÄĞÅÏ¢º¯Êı
+    // æ˜¾ç¤ºæŒ‡å®šæ–‡ä»¶çš„ä¿¡æ¯å‡½æ•°
     int ls(std::string str_name)
     {
         uint32_t inode_id = find(str_name);
@@ -420,7 +420,7 @@ public:
 
 
 
-    // ÏÔÊ¾µ±Ç° uid ÏÂËùÓĞÎÄ¼şº¯Êı
+    // æ˜¾ç¤ºå½“å‰ uid ä¸‹æ‰€æœ‰æ–‡ä»¶å‡½æ•°
     int ls_i()
     {
         std::cout << "free inodes count: " << superblock.get_free_inode_count() << std::endl;
@@ -439,7 +439,7 @@ public:
 
 
 
-    // µÈ´ıĞÂÃüÁî£¬ÃüÁîĞĞ½»»¥ÊµÏÖ
+    // ç­‰å¾…æ–°å‘½ä»¤ï¼Œå‘½ä»¤è¡Œäº¤äº’å®ç°
     int wait_op()
     {
         std::string op_str = "";
@@ -543,45 +543,45 @@ public:
 
 
 
-    // ²âÊÔÑùÀı
+    // æµ‹è¯•æ ·ä¾‹
     int test()
     {
-        std::cout << "--- ´´½¨ test1.txt ---" << std::endl;
+        std::cout << "--- åˆ›å»º test1.txt ---" << std::endl;
         create("test1.txt", 2);
         ls_i();
         std::cout << std::endl;
 
-        std::cout << "--- ´´½¨ test2.txt ---" << std::endl;
+        std::cout << "--- åˆ›å»º test2.txt ---" << std::endl;
         create("test2.txt", 9);
         ls_i();
         std::cout << std::endl;
 
-        std::cout << "--- É¾³ı test1.txt ---" << std::endl;
+        std::cout << "--- åˆ é™¤ test1.txt ---" << std::endl;
         remove("test1.txt");
         ls_i();
         std::cout << std::endl;
 
-        std::cout << "--- ½Ø¶Ï test2.txt ---" << std::endl;
+        std::cout << "--- æˆªæ–­ test2.txt ---" << std::endl;
         truncate("test2.txt");
         ls("test2.txt");
         std::cout << std::endl;
 
-        std::cout << "--- À©´ó test2.txt ---" << std::endl;
+        std::cout << "--- æ‰©å¤§ test2.txt ---" << std::endl;
         increase("test2.txt", 1);
         ls("test2.txt");
         std::cout << std::endl;
 
-        std::cout << "--- ´´½¨ test2.txt ---" << std::endl;
+        std::cout << "--- åˆ›å»º test2.txt ---" << std::endl;
         create("test2.txt", 5);
         ls_i();
         std::cout << std::endl;
 
-        std::cout << "--- ÇĞ»»µ½ uid 1 ---" << std::endl;
+        std::cout << "--- åˆ‡æ¢åˆ° uid 1 ---" << std::endl;
         VFS_working_uid = 1;
         ls_i();
         std::cout << std::endl;
 
-        std::cout << "--- ´´½¨ test2.txt ---" << std::endl;
+        std::cout << "--- åˆ›å»º test2.txt ---" << std::endl;
         create("test2.txt", 5);
         ls_i();
         std::cout << std::endl;
@@ -590,14 +590,14 @@ public:
         char input[20] = "input_test";
         char output[20] = "output_test";
 
-        // µÚÒ»´ÎÕû¸ö input Ğ´Èëblock3£¬ ÎÄ¼şÖĞ offset 0x00101800 
-        // µÚ¶ş´Î²¿·ÖĞ´Èë block 3 Ä©Î²£¬ÎÄ¼şÖĞ offset 0x00101C00 - 2
-        // ²¿·ÖĞ´Èë block 5£¬ÎÄ¼şÖĞ offset 0x00102000
-        // ÖĞ¼äµÄ block 4 ÊÇ inode 1 µÄ Ò»¼¶Ë÷ÒıÄÚÈİ£¬ÎÄ¼şÖĞ offset 0x00101C00
+        // ç¬¬ä¸€æ¬¡æ•´ä¸ª input å†™å…¥block3ï¼Œ æ–‡ä»¶ä¸­ offset 0x00101800 
+        // ç¬¬äºŒæ¬¡éƒ¨åˆ†å†™å…¥ block 3 æœ«å°¾ï¼Œæ–‡ä»¶ä¸­ offset 0x00101C00 - 2
+        // éƒ¨åˆ†å†™å…¥ block 5ï¼Œæ–‡ä»¶ä¸­ offset 0x00102000
+        // ä¸­é—´çš„ block 4 æ˜¯ inode 1 çš„ ä¸€çº§ç´¢å¼•å†…å®¹ï¼Œæ–‡ä»¶ä¸­ offset 0x00101C00
         write("test2.txt", input, 0, 20);
         write("test2.txt", input, 1024 - 2, 20);
         read("test2.txt", output, 1024 - 2, 20);
-        std::cout << "--- ´Ó test2.txt offset 1024-2 ¶ÁÈ¡³ö ---" << std::endl;
+        std::cout << "--- ä» test2.txt offset 1024-2 è¯»å–å‡º ---" << std::endl;
         std::cout << output << std::endl << std::endl;
 
         return 0;

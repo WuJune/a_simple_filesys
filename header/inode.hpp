@@ -20,25 +20,25 @@
 class Inode
 {
 protected:
-    uint16_t    i_mode = 0;        // ÎÄ¼şÀàĞÍºÍ RWX µÈÈ¨ÏŞÃèÊö
-    uint16_t    i_uid = 0;         // ÓÃ»§Ä¿Â¼ id
-    uint32_t    i_atime = 0;       // inode ÉÏÒ»´Î±»·ÃÎÊÊ±¼ä unix_time
-    uint32_t    i_ctime = 0;       // inode ´´½¨Ê±¼ä
-    uint32_t    i_mtime = 0;       // inode ÉÏÒ»´Î modified Ê±¼ä
-    uint32_t    i_dtime = 0;       // inode ÉÏÒ»´Î É¾³ıÊ±¼ä
-    uint32_t    indirect_block = 0;// Ò»¼¶Ë÷Òı
-    std::string i_name;            // inode ¶ÔÓ¦ÎÄ¼şµÄÃû×Ö
+    uint16_t    i_mode = 0;        // æ–‡ä»¶ç±»å‹å’Œ RWX ç­‰æƒé™æè¿°
+    uint16_t    i_uid = 0;         // ç”¨æˆ·ç›®å½• id
+    uint32_t    i_atime = 0;       // inode ä¸Šä¸€æ¬¡è¢«è®¿é—®æ—¶é—´ unix_time
+    uint32_t    i_ctime = 0;       // inode åˆ›å»ºæ—¶é—´
+    uint32_t    i_mtime = 0;       // inode ä¸Šä¸€æ¬¡ modified æ—¶é—´
+    uint32_t    i_dtime = 0;       // inode ä¸Šä¸€æ¬¡ åˆ é™¤æ—¶é—´
+    uint32_t    indirect_block = 0;// ä¸€çº§ç´¢å¼•
+    std::string i_name;            // inode å¯¹åº”æ–‡ä»¶çš„åå­—
     
-    uint32_t VFS_offset_beg = 0;    // Inode µÄÆğÊ¼µØÖ·
-    uint32_t VFS_inode_id = 0;      // Inode µÄ ID
-    uint32_t VFS_ingroup_id = 0;    // Inode ÔÚ Inode Table ÀïÃæµÄ¶ÔÓ¦Î»ÖÃ
-    std::vector<VFS_file_block> block_tabel;    // Inode ÎÄ¼ş ËùÓĞ¶ÔÓ¦ Block µÄ Table
+    uint32_t VFS_offset_beg = 0;    // Inode çš„èµ·å§‹åœ°å€
+    uint32_t VFS_inode_id = 0;      // Inode çš„ ID
+    uint32_t VFS_ingroup_id = 0;    // Inode åœ¨ Inode Table é‡Œé¢çš„å¯¹åº”ä½ç½®
+    std::vector<VFS_file_block> block_tabel;    // Inode æ–‡ä»¶ æ‰€æœ‰å¯¹åº” Block çš„ Table
 
 
 public:
     Inode(uint16_t inode_id, std::string str_name = "", uint16_t uid = 0)
     {
-        i_uid = uid;    // Ä¬ÈÏÎªÓÃ»§ 0
+        i_uid = uid;    // é»˜è®¤ä¸ºç”¨æˆ· 0
         i_name = str_name;
         VFS_inode_id = inode_id;
         VFS_ingroup_id = inode_id;
@@ -118,7 +118,7 @@ public:
 
 
 
-    int load_blocks(std::string path)  // ½«ËùÓĞ Block ¶Áµ½ Block table ÖĞ
+    int load_blocks(std::string path)  // å°†æ‰€æœ‰ Block è¯»åˆ° Block table ä¸­
     {
         VFS_file_block temp_block(indirect_block);
         uint32_t temp_block_id = 0;
@@ -135,7 +135,7 @@ public:
 
 
 
-    char* trans_pointer(uint32_t file_offset)   // ½«ÎÄ¼şÆ«ÒÆÁ¿×ª»»Îª¶ÔÓ¦ Block ÄÚµÄÖ¸Õë
+    char* trans_pointer(uint32_t file_offset)   // å°†æ–‡ä»¶åç§»é‡è½¬æ¢ä¸ºå¯¹åº” Block å†…çš„æŒ‡é’ˆ
     {
         if(file_offset > block_tabel.size() * 1024)
         {
@@ -146,7 +146,7 @@ public:
 
 
 
-    int read(char* output, uint32_t file_offset ,uint32_t size) // ´ÓÎÄ¼şµÄ Block ÖĞ¶ÁÈ¡ÄÚÈİ
+    int read(char* output, uint32_t file_offset ,uint32_t size) // ä»æ–‡ä»¶çš„ Block ä¸­è¯»å–å†…å®¹
     {
         for(uint32_t i = 0; i < size; ++i)
         {
@@ -158,7 +158,7 @@ public:
 
 
 
-    int write(char* input, uint32_t file_offset ,uint32_t size) // ´ÓÎÄ¼şµÄ Block ÖĞ¶ÁÈ¡ÄÚÈİ
+    int write(char* input, uint32_t file_offset ,uint32_t size) // ä»æ–‡ä»¶çš„ Block ä¸­è¯»å–å†…å®¹
     {
         for(uint32_t i = 0; i < size; ++i)
         {
@@ -168,7 +168,7 @@ public:
     }
 
 
-    // ½«¶ÔÓ¦ block ÖØÖÃ£¬²¢Ìí¼Óµ½ block table ÖĞ
+    // å°†å¯¹åº” block é‡ç½®ï¼Œå¹¶æ·»åŠ åˆ° block table ä¸­
     int add_block(uint32_t block_id)
     {
         block_tabel.push_back(VFS_file_block(block_id));
@@ -273,7 +273,7 @@ public:
     }
 
 
-    // µ±ĞèÒªÉ¾³ıÎÄ¼şÊ±£¬»ñÈ¡Ò»´®¼´½«±»ÊÍ·ÅµÄBlock Number
+    // å½“éœ€è¦åˆ é™¤æ–‡ä»¶æ—¶ï¼Œè·å–ä¸€ä¸²å³å°†è¢«é‡Šæ”¾çš„Block Number
     std::vector<uint32_t> get_delete_blocks_ids()
     {
         std::vector<uint32_t> temp_vec;
@@ -287,7 +287,7 @@ public:
 
 
 
-    // µ±ĞèÒª½Ø¶ÏÎÄ¼şÊ±£¬»ñÈ¡Ò»´®¼´½«±»ÊÍ·ÅµÄBlock Number
+    // å½“éœ€è¦æˆªæ–­æ–‡ä»¶æ—¶ï¼Œè·å–ä¸€ä¸²å³å°†è¢«é‡Šæ”¾çš„Block Number
     std::vector<uint32_t> get_truncate_block_ids()
     {
         std::vector<uint32_t> temp_vec;
@@ -302,20 +302,20 @@ public:
 
     int operator=(Inode temp)
     {
-        this->i_mode = temp.i_mode;        // ÎÄ¼şÀàĞÍºÍ RWE È¨ÏŞÃèÊö
-        this->i_uid = temp.i_uid;         // ÓÃ»§ id
-        this->i_atime = temp.i_atime;       // inode ÉÏÒ»´Î±»·ÃÎÊÊ±¼ä unix_time
-        this->i_ctime = temp.i_ctime;       // inode ´´½¨Ê±¼ä
-        this->i_mtime = temp.i_mtime;       // inode ÉÏÒ»´Î modified Ê±¼ä
-        this->i_dtime = temp.i_dtime;       // inode ÉÏÒ»´Î É¾³ıÊ±¼ä
-        this->indirect_block = temp.indirect_block;// Ğ´ËÀ£¬128
+        this->i_mode = temp.i_mode;        // æ–‡ä»¶ç±»å‹å’Œ RWE æƒé™æè¿°
+        this->i_uid = temp.i_uid;         // ç”¨æˆ· id
+        this->i_atime = temp.i_atime;       // inode ä¸Šä¸€æ¬¡è¢«è®¿é—®æ—¶é—´ unix_time
+        this->i_ctime = temp.i_ctime;       // inode åˆ›å»ºæ—¶é—´
+        this->i_mtime = temp.i_mtime;       // inode ä¸Šä¸€æ¬¡ modified æ—¶é—´
+        this->i_dtime = temp.i_dtime;       // inode ä¸Šä¸€æ¬¡ åˆ é™¤æ—¶é—´
+        this->indirect_block = temp.indirect_block;// å†™æ­»ï¼Œ128
         this->i_name = temp.i_name;
         
-        this->VFS_offset_beg = temp.VFS_offset_beg;    // Inode µÄÆğÊ¼µØÖ·
-        this->VFS_inode_id = temp.VFS_inode_id;      // Inode µÄ ID
-        this->VFS_ingroup_id = temp.VFS_ingroup_id;    // Inode ÔÚ Inode Table ÀïÃæµÄ¶ÔÓ¦Î»ÖÃ
+        this->VFS_offset_beg = temp.VFS_offset_beg;    // Inode çš„èµ·å§‹åœ°å€
+        this->VFS_inode_id = temp.VFS_inode_id;      // Inode çš„ ID
+        this->VFS_ingroup_id = temp.VFS_ingroup_id;    // Inode åœ¨ Inode Table é‡Œé¢çš„å¯¹åº”ä½ç½®
 
-        this->block_tabel = temp.block_tabel;    // Inode ÎÄ¼ş ËùÓĞ¶ÔÓ¦ Block µÄ Table 
+        this->block_tabel = temp.block_tabel;    // Inode æ–‡ä»¶ æ‰€æœ‰å¯¹åº” Block çš„ Table 
         
         return 0;
     }

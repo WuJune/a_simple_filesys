@@ -13,7 +13,7 @@ int main()
     char flag = 0;
     while(flag != 'Y' && flag != 'N')
     {
-        std::cout << "ÊÇ·ñÖ´ÐÐ¸ñÊ½»¯ Y/N" << std::endl;
+        std::cout << "æ˜¯å¦æ‰§è¡Œæ ¼å¼åŒ– Y/N" << std::endl;
         std::cin >> flag;
     }
     if(flag == 'Y')
@@ -28,7 +28,7 @@ int main()
     flag = '0';
     while(flag != 'Y' && flag != 'N')
     {
-        std::cout << "ÊÇ·ñÖ´ÐÐ²âÊÔÑùÀý Y/N" << std::endl;
+        std::cout << "æ˜¯å¦æ‰§è¡Œæµ‹è¯•æ ·ä¾‹ Y/N" << std::endl;
         std::cin >> flag;
     }
     if(flag == 'Y')
