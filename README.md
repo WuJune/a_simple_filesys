@@ -10,7 +10,7 @@
 
 对于内存内，我们需要维护一个虚拟文件系统（VFS），对于磁盘上，我们需要维护一个实际的、完整的文件在磁盘上的内容布局。
 
-通过VFS，提供高层次的对文件的各种操作：打开、删除、链接、重命名等。通过文件系统，将 VFS 所表达的各种文件操作通过高效合理的方式保存在磁盘上。
+通过VFS，提供高层次的对文件的各种操作：打开、删除、链接、重命名等。通过文件系统，将 VFS 所表达的各种文件操作通过高效合理的方式组织保存在磁盘上。
 
 ## 实验中模拟的文件系统（磁盘上）
 
@@ -126,21 +126,23 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
  <img src=".\for_doc\image\index_block_01.png" alt="index_block_01"  width="500px;" />
 
+------
+
 ### 已实现的功能（命令行形式）
 
-#### 格式化
+#### 1. 格式化
 
 每次启动程序时询问是否进行格式化
 
  <img src=".\for_doc\image\格式化.png" alt="格式化"  width="500px;" />
 
-#### exit
+#### 2. exit
 
 `exit`
 
 退出命令交互界面，并结束程序
 
-#### create
+#### 3. create
 
 `create file_name block_count`
 
@@ -148,7 +150,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 在当前用户目录下创建指定大小的文件
 
-#### find
+#### 4. find
 
 `find file_name`
 
@@ -158,7 +160,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 在当前用户目录下寻找目标文件并打印文件信息
 
-#### remove
+#### 5. remove
 
 `remove file_name`
 
@@ -168,7 +170,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 在当前用户目录下删除目标文件
 
-#### truncate
+#### 6. truncate
 
 `truncate file_name`
 
@@ -178,7 +180,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 截断当前目录下的目标文件，释放目标文件的block（但不释放用来存放索引的 Block）
 
-#### increase
+#### 7. increase
 
 `increase file_name inc_cout`
 
@@ -186,7 +188,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 为当前目录下指定文件分配添加block
 
-#### write
+#### 8. write
 
 `write file_name string`
 
@@ -196,7 +198,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 在命令行下默认从 offset 0 开始，字符串最长为 200
 
-#### read
+#### 9. read
 
 `read file_name size`
 
@@ -208,7 +210,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 >
 > 随机读写只提供 c++ 代码接口
 
-#### rename
+#### 10. rename
 
 `rename file_name file_new_name`
 
@@ -218,7 +220,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 重命名当前目录下目标文件
 
-#### ls_i
+#### 11. ls_i
 
 `ls_i`
 
@@ -226,7 +228,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 打印当前用户目录下所有文件
 
-#### ls
+#### 12. ls
 
 `ls file_name`
 
@@ -236,7 +238,7 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 打印当前目录下目标文件信息
 
-#### cd
+#### 13. cd
 
 `cd uid`
 
@@ -244,19 +246,21 @@ indirect_block 中存放的不是文件内容，而是文件用来存放内容�
 
 切换到目标 uid 目录
 
-#### id
+#### 14. id
 
 `id`
 
 获取当前访问目录对应的用户 uid
 
-#### login
+#### 15. login
 
 `login uid`
 
 `login 1`
 
 登录到 uid，但不切换当前访问目录（登录 uid 和 当前目录 uid 区分开）
+
+----
 
 ### TO DO
 
