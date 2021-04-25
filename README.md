@@ -112,13 +112,27 @@
 
 一个可以自由读写的区域，大小为 1024Byte
 
+#### indirect_block
+
+indirect_block 中存放的不是文件内容，而是文件用来存放内容的 block 的索引，因此每个文件至少有一个或多个block。
+
+例如：
+
+ <img src=".\for_doc\image\index_block_00.png" alt="index_block_00" style="zoom: 50%;" />
+
+文件 `file_01.txt` 的索引所在 `Block` 为 `Block 1`，用来存放文件内容的 `Blokc` 有 2、3、4、5、6、8、9、0xA
+
+`Block 1` 内容如下
+
+ <img src=".\for_doc\image\index_block_01.png" alt="index_block_01" style="zoom: 50%;" />
+
 ### 已实现的功能（命令行形式）
 
 #### 格式化
 
 每次启动程序时询问是否进行格式化
 
- <img src=".\for_doc\image\格式化.png" alt="格式化" style="zoom: 67%;" />
+ <img src=".\for_doc\image\格式化.png" alt="格式化" style="zoom: 50%;" />
 
 #### exit
 
@@ -130,7 +144,7 @@
 
 `create file_name block_count`
 
- <img src=".\for_doc\image\create.png" alt="create" style="zoom:67%;" />
+ <img src=".\for_doc\image\create.png" alt="create" style="zoom: 50%;" />
 
 在当前用户目录下创建指定大小的文件
 
@@ -140,7 +154,7 @@
 
 `find test1.txt`
 
- <img src=".\for_doc\image\find.png" alt="find" style="zoom: 67%;" />
+ <img src=".\for_doc\image\find.png" alt="find" style="zoom: 50%;" />
 
 在当前用户目录下寻找目标文件并打印文件信息
 
@@ -150,7 +164,7 @@
 
 `remove test1.txt`
 
- <img src=".\for_doc\image\remove.png" alt="create" style="zoom:67%;" />
+ <img src=".\for_doc\image\remove.png" alt="create" style="zoom: 50%;" />
 
 在当前用户目录下删除目标文件
 
@@ -160,7 +174,7 @@
 
 `truncate test1.txt`
 
- <img src=".\for_doc\image\truncate.png" alt="truncate" style="zoom:67%;" />
+ <img src=".\for_doc\image\truncate.png" alt="truncate" style="zoom: 50%;" />
 
 截断当前目录下的目标文件，释放目标文件的block（但不释放用来存放索引的 Block）
 
@@ -168,7 +182,7 @@
 
 `increase file_name inc_cout`
 
- <img src=".\for_doc\image\increase.png" alt="increase" style="zoom:67%;" />
+ <img src=".\for_doc\image\increase.png" alt="increase" style="zoom: 50%;" />
 
 为当前目录下指定文件分配添加block
 
@@ -176,7 +190,7 @@
 
 `write file_name string`
 
- <img src=".\for_doc\image\write.png" alt="write" style="zoom:67%;" />
+ <img src=".\for_doc\image\write.png" alt="write" style="zoom: 50%;" />
 
 将目标字符串写入当前目录下目标文件
 
@@ -186,7 +200,7 @@
 
 `read file_name size`
 
-<img src=".\for_doc\image\read.png" alt="read" style="zoom:67%;" />
+ <img src=".\for_doc\image\read.png" alt="read" style="zoom: 50%;" />
 
 读取当前目录下目标文件从 offset 0 开始的 0-size 个字符并输出
 
@@ -200,7 +214,7 @@
 
 `rename test1.txt test1_new.txt`
 
- <img src=".\for_doc\image\rename.png" alt="rename" style="zoom:67%;" />
+ <img src=".\for_doc\image\rename.png" alt="rename" style="zoom: 50%;" />
 
 重命名当前目录下目标文件
 
@@ -208,7 +222,7 @@
 
 `ls_i`
 
- <img src=".\for_doc\image\ls_i.png" alt="ls_i" style="zoom:67%;" />
+ <img src=".\for_doc\image\ls_i.png" alt="ls_i" style="zoom: 50%;" />
 
 打印当前用户目录下所有文件
 
@@ -218,7 +232,7 @@
 
 `ls test1.txt`
 
- <img src=".\for_doc\image\ls.png" alt="ls" style="zoom:67%;" />
+ <img src=".\for_doc\image\ls.png" alt="ls" style="zoom: 50%;" />
 
 打印当前目录下目标文件信息
 
@@ -243,16 +257,6 @@
 `login 1`
 
 登录到 uid，但不切换当前访问目录（登录 uid 和 当前目录 uid 区分开）
-
-#### 索引Blokc示例
-
- <img src=".\for_doc\image\index_block_00.png" alt="index_block_00" style="zoom:67%;" />
-
-文件 `file_01.txt` 的索引所在 `Block` 为 `Block 1`
-
-`Block 1` 内容如下
-
- <img src=".\for_doc\image\index_block_01.png" alt="index_block_01" style="zoom:67%;" />
 
 ### TO DO
 
