@@ -182,7 +182,7 @@
 
 `write test1.txt 123123`
 
- <img src="C:\Users\WuJun\Documents\Code\github_june\WSL\A_simple_filesys\for_doc\image\write.png" alt="write" style="zoom:67%;" />
+ <img src=".\for_doc\image\write.png" alt="write" style="zoom:67%;" />
 
 将目标字符串写入当前目录下目标文件
 
@@ -194,7 +194,7 @@
 
 `read test1.txt 3`
 
- <img src="C:\Users\WuJun\Documents\Code\github_june\WSL\A_simple_filesys\for_doc\image\read.png" alt="read" style="zoom:67%;" />
+ <img src=".\for_doc\image\read.png" alt="read" style="zoom:67%;" />
 
 读取当前目录下目标文件从 offset 0 开始的 0-size 个字符并输出
 
@@ -208,7 +208,7 @@
 
 `rename test1.txt test1_new.txt`
 
- <img src="C:\Users\WuJun\Documents\Code\github_june\WSL\A_simple_filesys\for_doc\image\rename.png" alt="rename" style="zoom:67%;" />
+ <img src=".\for_doc\image\rename.png" alt="rename" style="zoom:67%;" />
 
 重命名当前目录下目标文件
 
@@ -216,7 +216,7 @@
 
 `ls_i`
 
- <img src="C:\Users\WuJun\Documents\Code\github_june\WSL\A_simple_filesys\for_doc\image\ls_i.png" alt="ls_i" style="zoom:67%;" />
+ <img src=".\for_doc\image\ls_i.png" alt="ls_i" style="zoom:67%;" />
 
 打印当前用户目录下所有文件
 
@@ -232,7 +232,7 @@
 
 `ls test1.txt`
 
- <img src="C:\Users\WuJun\Documents\Code\github_june\WSL\A_simple_filesys\for_doc\image\ls.png" alt="ls" style="zoom:67%;" />
+ <img src=".\for_doc\image\ls.png" alt="ls" style="zoom:67%;" />
 
 打印当前目录下目标文件信息
 
