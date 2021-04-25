@@ -1,6 +1,6 @@
 # A_simple_filesystem
 
-这是一个通过二进制文件模拟简单文件系统的实验。
+这是一个通过二进制文件模拟简单索引式文件系统的实验。
 
 通过二进制文件模拟磁盘；通过对二进制文件的读写，模拟对磁盘的读写。
 
@@ -124,7 +124,15 @@
 
 `exit`
 
-退出命交互界面，并结束程序
+退出命令交互界面，并结束程序
+
+#### create
+
+`create file_name block_count`
+
+ <img src=".\for_doc\image\create.png" alt="create" style="zoom:67%;" />
+
+在当前用户目录下创建指定大小的文件
 
 #### find
 
@@ -136,23 +144,13 @@
 
 在当前用户目录下寻找目标文件并打印文件信息
 
-#### create
-
-`create file_name block_count`
-
-`create test1.txt 3`
-
- <img src=".\for_doc\image\create.png" alt="create" style="zoom:67%;" />
-
-在当前用户目录下创建指定大小的文件
-
 #### remove
 
 `remove file_name`
 
 `remove test1.txt`
 
- <img src=".\for_doc\image\create.png" alt="create" style="zoom:67%;" />
+ <img src=".\for_doc\image\remove.png" alt="create" style="zoom:67%;" />
 
 在当前用户目录下删除目标文件
 
@@ -170,8 +168,6 @@
 
 `increase file_name inc_cout`
 
-`increase test1.txt 3`
-
  <img src=".\for_doc\image\increase.png" alt="increase" style="zoom:67%;" />
 
 为当前目录下指定文件分配添加block
@@ -179,8 +175,6 @@
 #### write
 
 `write file_name string`
-
-`write test1.txt 123123`
 
  <img src=".\for_doc\image\write.png" alt="write" style="zoom:67%;" />
 
@@ -192,9 +186,7 @@
 
 `read file_name size`
 
-`read test1.txt 3`
-
- <img src=".\for_doc\image\read.png" alt="read" style="zoom:67%;" />
+<img src=".\for_doc\image\read.png" alt="read" style="zoom:67%;" />
 
 读取当前目录下目标文件从 offset 0 开始的 0-size 个字符并输出
 
@@ -220,12 +212,6 @@
 
 打印当前用户目录下所有文件
 
-#### id
-
-`id`
-
-获取当前用户目录对应的用户 uid
-
 #### ls
 
 `ls file_name`
@@ -244,13 +230,29 @@
 
 切换到目标 uid 目录
 
+#### id
+
+`id`
+
+获取当前访问目录对应的用户 uid
+
 #### login
 
 `login uid`
 
 `login 1`
 
-登录到 uid，但不切换用户目录（登录 uid 和 当前目录 uid 区分开）
+登录到 uid，但不切换当前访问目录（登录 uid 和 当前目录 uid 区分开）
+
+#### 索引Blokc示例
+
+ <img src=".\for_doc\image\index_block_00.png" alt="index_block_00" style="zoom:67%;" />
+
+文件 `file_01.txt` 的索引所在 `Block` 为 `Block 1`
+
+`Block 1` 内容如下
+
+ <img src=".\for_doc\image\index_block_01.png" alt="index_block_01" style="zoom:67%;" />
 
 ### TO DO
 
@@ -259,3 +261,7 @@
 ☑️ 更顺畅的命令逻辑
 
 ☑️ 更清晰的代码结构
+
+### BUG TO FIX
+
+☑️ 查找不存在的文件后返回查找结果但程序直接结束，需修改为程序继续运行
