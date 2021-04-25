@@ -20,13 +20,13 @@ protected:
 
     uint32_t VFS_bg_id = 0;
     uint32_t VFS_offset_beg = 0;
-    uint8_t bitmap[1024 * 8] = {};  // 1024 * 8 ¸ö uint8
+    uint8_t bitmap[1024 * 8] = {};  // 1024 * 8 Â¸Ã¶ uint8
 
 public:
     Inode_bitmap()
     {
         VFS_bg_id = 0;
-        VFS_offset_beg = 2048; // Block 1, Ğ´ËÀ
+        VFS_offset_beg = 2048; // Block 1, ÃÂ´Ã‹Ã€
     }
 
 
