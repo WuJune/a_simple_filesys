@@ -1,4 +1,4 @@
-# A_simple_filesystem
+# a_simple_filesystem
 
 这是一个通过二进制文件模拟简单索引式文件系统的实验。
 
